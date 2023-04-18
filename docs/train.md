@@ -32,7 +32,7 @@ MASR基于pytorch，`MASRModel`是`torch.nn.Module`的子类。这将给熟悉`p
 
 ```python
 from models.conv import GatedConv
-
+y
 model = GatedConv(vocabulary)
 ```
 

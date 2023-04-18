@@ -79,6 +79,7 @@ class GreedyDecoder(Decoder):
     def convert_to_strings(
         self, sequences, sizes=None, remove_repetitions=False, return_offsets=False
     ):
+        # 这里吧每个batch的string搞出来
         """Given a list of numeric sequences, returns the corresponding strings"""
         strings = []
         offsets = [] if return_offsets else None
@@ -118,14 +119,24 @@ class GreedyDecoder(Decoder):
         Returns the argmax decoding given the probability matrix. Removes
         repeated elements in the sequence, as well as blanks.
 
-        Arguments:
+        Arguments: 
             probs: Tensor of character probabilities from the network. Expected shape of batch x seq_length x output_dim
             sizes(optional): Size of each sequence in the mini-batch
         Returns:
             strings: sequences of the model's best guess for the transcription on inputs
             offsets: time step per character predicted
         """
+        # print("probs.shape")
+        # print(probs.shape)
         _, max_probs = torch.max(probs, 2)
+        # print("probs.shape max2")
+        # print(_)
+        # print(max_probs)
+        # print("probs.shape max _ shape")
+        # print(_.shape)
+        # print("probs.shape max max_probs shape")
+        # print(max_probs.shape)
+
         strings, offsets = self.convert_to_strings(
             max_probs.view(max_probs.size(0), max_probs.size(1)),
             sizes,
